@@ -6,33 +6,33 @@ import { useState, useEffect} from 'react';
  * - parent search function
  * 
  * State:
- * - formData: user input in search bar
+ * - searchTerm: user input in search bar
  * 
  * call list
  * { CompanyList, JobList } -> Search
  */
 
 function Search({ search }) {
-    const [formData, setFormData] = useState(""); //dont need to call it form data since it is just one input
+    const [searchTerm, setSearchTerm] = useState("");
+    console.debug("Search state: ", searchTerm);
 
     //calls parent fn with form data on submit
-    function handleSubmit(evt) { //async and await call to search so can handle errors
+    async function handleSubmit(evt) {
         evt.preventDefault();
-        search(formData);
-        setFormData(formData); //dont need
+        await search(searchTerm.trim());
     }
 
     //sets data on change of input
     function handleChange(evt) {
-        setFormData(evt.target.value);
+        setSearchTerm(evt.target.value);
     }
 
     return (
         <div className="Search">
             <form onSubmit={handleSubmit}>
                 <input className="Search-Bar"
-                    value={formData}
-                    name="formData"
+                    value={searchTerm}
+                    name="searchTerm"
                     onChange={handleChange}>
                 </input>
                 <button type="submit">Submit</button>

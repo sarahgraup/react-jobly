@@ -15,26 +15,26 @@ function Nav() {
     return (
         <nav className="Nav">
             <NavLink className="Nav-Home" to="/"
-                style={({ isActive, isPending }) => {
+                style={({ isActive }) => {
                     return {
                         fontWeight: isActive ? "bold" : "",
-                        color: isPending ? "red" : "black", //red and black as const var
-                    };
+                        color: "black",
+                    }
                 }}>
                 Jobly</NavLink>
             <NavLink className="Nav-Companies" to="/companies"
-                style={({ isActive, isPending }) => {
+                style={({ isActive }) => {
                     return {
                         fontWeight: isActive ? "bold" : "",
-                        color: isPending ? "red" : "black",
+                        color: "black",
                     };
                 }}>
                 Companies</NavLink>
             <NavLink className="Nav-Jobs" to="/jobs"
-                style={({ isActive, isPending }) => {
+                style={({ isActive }) => {
                     return {
                         fontWeight: isActive ? "bold" : "",
-                        color: isPending ? "red" : "black",
+                        color: "black",
                     };
                 }}>
                 Jobs</NavLink>

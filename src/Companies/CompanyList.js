@@ -11,37 +11,40 @@ import Search from "../Search";
  * 
  * props: none
  * 
- * state: companies {[companies], isLoading}
+ * state: 
+ *  - companies {[companies], isLoading}
+ *  - searchTerm: string from search box
  * 
  * RoutesList -> CompanyList -> { Search, CompanyCardList }
  * 
  */
 function CompanyList() {
     const [companies, setCompanies] = useState({ companiesData: [], isLoading: true })
-    console.debug("CompanyList state: ", companies);
-    //add use state to show what you are filtering to based on search
+    const [searchTerm, setSearchTerm] = useState('');
+    console.debug("CompanyList companies state: ", companies,
+        "searchTerm state: ", searchTerm);
 
 
     //fetches list of companies from api after first render
     useEffect(function fetchCompaniesOnMount() {
         async function fetchCompanies() {
             const results = await JoblyApi.getCompanies();
-            setCompanies(curr => {
-                curr.companiesData = results;
-                curr.isLoading = false;
-                return { ...curr };
+            setCompanies({
+                companiesData: results,
+                isLoading: false
             });
         }
         fetchCompanies();
     }, []);
 
-    //fetches companies from api after search submit filters
-    async function companySearch(searchName) { 
+    //fetches companies from api after search submit filters; update searchTerm state
+    async function companySearch(searchName) {
+        setSearchTerm(searchName);
+
         const results = await JoblyApi.getCompanies(searchName);
-        setCompanies(curr => { //set companies does not rely on old state so dont need to make it a function
-            curr.companiesData = results;
-            curr.isLoading = false;
-            return { ...curr };
+        setCompanies({
+            companiesData: results,
+            isLoading: false
         });
     }
 
@@ -51,7 +54,7 @@ function CompanyList() {
                 ? <Loading />
                 : <div>
                     <Search search={companySearch} />
-                    showing results for: Baker
+                    {searchTerm && <p>Showing results for "{searchTerm}"</p>}
                     {companies.companiesData.length ?
                         <CompanyCardList companies={companies.companiesData} /> :
                         <p>Sorry no results were found</p>}

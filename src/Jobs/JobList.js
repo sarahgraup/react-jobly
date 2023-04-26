@@ -10,14 +10,19 @@ import Search from "../Search";
  * 
  *  props: none
  * 
- *  state: jobs {[jobs], isLoading}
+ *  state: 
+ *   - jobs {[jobs], isLoading}
+ *   - searchTerm: string from search box
  * 
  * RouteList -> JobList -> { Search, JobCard }
  */
 
 function JobList() {
     const [jobs, setJobs] = useState({ jobsData: [], isLoading: true });
-    console.debug("JobList state: ", jobs);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    console.debug("JobList jobs state: ", jobs,
+        "searchTerm state: ", searchTerm);
 
     //fetches jobs api after first render
     useEffect(function fetchJobsOnMount() {
@@ -32,8 +37,10 @@ function JobList() {
         fetchJobs();
     }, []);
 
-    ////fetches jobs from api after search submit filters
+    ////fetches jobs from api after search submit filters; update searchTerm state
     async function jobSearch(SearchTitle) {
+        setSearchTerm(SearchTitle);
+
         const results = await JoblyApi.getJobs(SearchTitle);
         setJobs(curr => {
             curr.jobsData = results;
@@ -48,6 +55,7 @@ function JobList() {
                 ? <Loading />
                 : <div>
                     <Search search={jobSearch} />
+                    {searchTerm && <p>Showing results for "{searchTerm}"</p>}
                     {jobs.jobsData.length ?
                         <JobCardList jobs={jobs.jobsData} /> :
                         <p>Sorry no results were found</p>}
