@@ -4,9 +4,15 @@ import CompanyDetail from './Companies/CompanyDetail';
 import CompanyList from './Companies/CompanyList';
 import JobList from './Jobs/JobList';
 
-/**Routes to all site paths 
+/**Component for RoutesList
+ * 
+ * Routes to all site paths 
+ * 
  * Props:none
+ * 
  * State:none
+ * 
+ * App -> RoutesList -> { Home, CompanyList, JobList, CompanyDetail } (when path is accessed)
  * */ 
 function RoutesList() {
     return (

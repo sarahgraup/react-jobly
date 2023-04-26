@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
+
 /** Component for Search bar
  * 
  * Props:
@@ -12,15 +13,16 @@ import { useState } from 'react';
  */
 
 function Search({ search }) {
-    const [formData, setFormData] = useState("");
+    const [formData, setFormData] = useState(""); //dont need to call it form data since it is just one input
 
-    function handleSubmit(evt) {
+    //calls parent fn with form data on submit
+    function handleSubmit(evt) { //async and await call to search so can handle errors
         evt.preventDefault();
         search(formData);
-        setFormData(formData);
+        setFormData(formData); //dont need
     }
 
-    console.log(formData);
+    //sets data on change of input
     function handleChange(evt) {
         setFormData(evt.target.value);
     }
@@ -31,14 +33,12 @@ function Search({ search }) {
                 <input className="Search-Bar"
                     value={formData}
                     name="formData"
-                    onChange = {handleChange}>
+                    onChange={handleChange}>
                 </input>
-                <button type = "submit">Submit</button>
+                <button type="submit">Submit</button>
             </form>
         </div>
     );
-
-
 }
 
 export default Search;

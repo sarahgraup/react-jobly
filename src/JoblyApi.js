@@ -41,8 +41,13 @@ class JoblyApi {
     /** Get details on a company by handle. */
 
     static async getCompany(handle) {
-        let res = await this.request(`companies/${handle}`);
-        return res.company;
+        try{
+            let res = await this.request(`companies/${handle}`);
+            return res.company;
+        }catch(err){
+            return [];
+        }
+        
     }
 
     /** Get list of companies or list based on filter by searchName  */
@@ -66,6 +71,7 @@ class JoblyApi {
 
     /** Get list of jobs or list based on filter by searchTitle  */
     static async getJobs(searchTitle) {
+       
         let res;
         if (searchTitle === undefined) {
             res = await this.request("jobs");

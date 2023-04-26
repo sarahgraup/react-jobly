@@ -19,8 +19,7 @@ function CompanyCardList({ companies }) {
         <div className="CompanyCardList">
             {companies.map(company =>
                 <CompanyCard key={company.handle} company={company} />
-                )
-            }
+            )}
         </div>
     );
 }

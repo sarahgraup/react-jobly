@@ -5,19 +5,21 @@ import JoblyApi from "../JoblyApi";
 import Search from "../Search";
 /**
  * Component for JobList
- * gets API data for jobs; renders list of all jobs or searched jobs)
+ * 
+ * gets API data for jobs
+ * 
  *  props: none
  * 
  *  state: jobs {[jobs], isLoading}
  * 
- *  calls: Search, JobCard
- * 
- * RouteList -> JobList
+ * RouteList -> JobList -> { Search, JobCard }
  */
-function JobList(){
-    const[jobs, setJobs] = useState({jobsData: [], isLoading: true});
+
+function JobList() {
+    const [jobs, setJobs] = useState({ jobsData: [], isLoading: true });
     console.debug("JobList state: ", jobs);
-    
+
+    //fetches jobs api after first render
     useEffect(function fetchJobsOnMount() {
         async function fetchJobs() {
             const results = await JoblyApi.getJobs();
@@ -30,6 +32,7 @@ function JobList(){
         fetchJobs();
     }, []);
 
+    ////fetches jobs from api after search submit filters
     async function jobSearch(SearchTitle) {
         const results = await JoblyApi.getJobs(SearchTitle);
         setJobs(curr => {
@@ -38,7 +41,6 @@ function JobList(){
             return { ...curr };
         });
     }
-    console.log(jobs.jobsData);
 
     return (
         <div className="JobList">
@@ -46,12 +48,11 @@ function JobList(){
                 ? <Loading />
                 : <div>
                     <Search search={jobSearch} />
-                    {jobs.jobsData ?
+                    {jobs.jobsData.length ?
                         <JobCardList jobs={jobs.jobsData} /> :
                         <p>Sorry no results were found</p>}
                 </div>}
         </div>
     );
-
 }
 export default JobList;

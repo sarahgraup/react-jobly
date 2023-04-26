@@ -13,14 +13,13 @@
 function JobCard({ job }) {
     console.debug("JobCard");
 
-
     return (
         <div className="JobCard">
             <h1>{job.title}</h1>
             <h2>{job.companyName}</h2>
-            
+
             <div>
-                {job.salary && (
+                {job.salary && ( //have salary is 0
                     <div>
                         Salary:
                         {job.salary}
@@ -28,7 +27,7 @@ function JobCard({ job }) {
                 )}
 
                 <div>
-                    Equity:
+                    Equity: 
                     {job.equity && (
                         job.equity
                     )}
@@ -36,7 +35,7 @@ function JobCard({ job }) {
             </div>
 
         </div>
-    )
+    );
 }
 
 export default JobCard;
