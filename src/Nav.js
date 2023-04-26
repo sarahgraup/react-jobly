@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import './Nav.css';
 /** Component for Naf
  * 
  * Navigation bar for every page on site 
@@ -18,26 +19,28 @@ function Nav() {
                 style={({ isActive }) => {
                     return {
                         fontWeight: isActive ? "bold" : "",
-                        color: "black",
+                        color: "white",
                     }
                 }}>
                 Jobly</NavLink>
-            <NavLink className="Nav-Companies" to="/companies"
-                style={({ isActive }) => {
-                    return {
-                        fontWeight: isActive ? "bold" : "",
-                        color: "black",
-                    };
-                }}>
-                Companies</NavLink>
-            <NavLink className="Nav-Jobs" to="/jobs"
-                style={({ isActive }) => {
-                    return {
-                        fontWeight: isActive ? "bold" : "",
-                        color: "black",
-                    };
-                }}>
-                Jobs</NavLink>
+            <div className="Nav-right">
+                <NavLink className="Nav-Companies" to="/companies"
+                    style={({ isActive }) => {
+                        return {
+                            fontWeight: isActive ? "bold" : "",
+                            color: "white",
+                        };
+                    }}>
+                    Companies</NavLink>
+                <NavLink className="Nav-Jobs" to="/jobs"
+                    style={({ isActive }) => {
+                        return {
+                            fontWeight: isActive ? "bold" : "",
+                            color: "white",
+                        };
+                    }}>
+                    Jobs</NavLink>
+            </div>
         </nav>
     );
 }

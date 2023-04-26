@@ -1,5 +1,5 @@
 import { convertAndFormat } from "../helperFuncs";
-
+import "./JobCard.css";
 /** Component for JObCard
  *  Renders a card with job details
  * 
@@ -19,8 +19,8 @@ function JobCard({ job }) {
 
     return (
         <div className="JobCard">
-            <h1>{job.title}</h1>
-            <h2>{job.companyName}</h2>
+            <h2>{job.title}</h2>
+            <h3>{job.companyName}</h3>
 
             <div>
                 {"salary" in job && (

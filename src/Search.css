@@ -1,0 +1,24 @@
+.Search{
+    margin:10px;
+}
+
+.Search-Bar{
+    padding:8px;
+    width:15%;
+    border-radius: 10px;
+    border-style: none;
+}
+
+button{
+    padding:8px;
+    margin:5px;
+    border-radius: 10px;
+    border-style:none;
+    background-color: #29528c;
+    color:white;
+
+}
+
+button:hover{
+    background-color:#18215a;
+}

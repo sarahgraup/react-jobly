@@ -1,0 +1,21 @@
+.Nav {
+    background-color: #18215A;
+    height: 50px;
+    display: flex;
+}
+
+.Nav a {
+    text-decoration: none;
+    margin: 5px;
+}
+
+.Nav-Home {
+    padding-left: 5px;
+    font-size: 32px;
+}
+
+.Nav-right {
+    padding: 10px;
+    margin-left: auto;
+    font-size: 24px;
+}

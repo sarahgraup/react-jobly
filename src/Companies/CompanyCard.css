@@ -1,0 +1,23 @@
+.CompanyCard{
+    background-color: white;
+    width:60%;
+    margin-left:20%;
+    border-radius: 10px;
+    padding:8px;
+    margin-bottom:20px;
+    box-shadow: 10px 10px 10px #18215A;
+    /* display:flex; */
+
+
+
+    
+}
+.CompanyCard a{
+    text-decoration: none;
+    color:black;
+}
+
+.CompanyCard-img{
+    width:60px;
+   float:right;
+}

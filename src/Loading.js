@@ -1,3 +1,4 @@
+
 /** Component for Loading page
  * 
  * Props:
@@ -13,7 +14,7 @@
 function Loading() {
     return (
         <div className="loading">
-            Loading...
+            <img src = "/snail.gif" style={{width:"50%"}}></img>
         </div>
     );
 
