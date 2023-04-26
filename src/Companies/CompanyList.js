@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CompanyCardList from "./CompanyCardList";
 import Loading from "../Loading";
 import JoblyApi from "../JoblyApi";
+import Search from "../Search";
 
 /**
  * gets API data for companies
@@ -22,16 +23,30 @@ function CompanyList() {
                 curr.companiesData = results;
                 curr.isLoading = false;
                 return { ...curr };
-            })
+            });
         }
         fetchCompanies();
-    }, [ ]);
+    }, []);
+
+    async function companySearch(Searchname) {
+        const results = await JoblyApi.getCompanies(Searchname);
+        setCompanies(curr => {
+            curr.companiesData = results;
+            curr.isLoading = false;
+            return { ...curr };
+        });
+    }
 
     return (
         <div className="CompanyList">
             {companies.isLoading
                 ? <Loading />
-                : <CompanyCardList companies={companies.companiesData} />}
+                : <div>
+                    <Search search={companySearch} />
+                    {companies.companiesData ?
+                        <CompanyCardList companies={companies.companiesData} /> :
+                        <p>Sorry no results were found</p>}
+                </div>}
         </div>
     );
 }

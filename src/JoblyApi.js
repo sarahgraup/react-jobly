@@ -47,14 +47,21 @@ class JoblyApi {
 
     /** Get list of companies or list based on filter by searchName  */
     static async getCompanies(searchName) {
-        let res;
-        if (searchName === undefined) {
-            res = await this.request("companies")
-        } else {
-            res = await this.request(`companies/${searchName}`);}
-       
-        console.log(res.companies);
-        return res.companies;
+        try {
+            let res;
+            if (searchName === undefined) {
+                res = await this.request("companies")
+            } else {
+                res = await this.request(`companies/?nameLike=${searchName}`);
+            }
+            console.log(res.companies);
+            return res.companies;
+
+        } catch (err) {
+            return [];
+
+        }
+
     }
 
     /** Get list of jobs or list based on filter by searchTitle  */
@@ -63,7 +70,7 @@ class JoblyApi {
         if (searchTitle === undefined) {
             res = await this.request("jobs");
         } else {
-            res = await this.request(`jobs/${searchTitle}`);
+            res = await this.request(`jobs/?title=${searchTitle}`);
             console.log(res.jobs);
         }
         return res.jobs;
