@@ -1,0 +1,21 @@
+.Home {
+    margin-top: 50px;
+    background-image: url(http://localhost:3000/jobs.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.Home-h1 {
+    display: block;
+    padding-top: 10%;
+    font-size: 64px;
+    color: white;
+}
+
+.Home-subheading {
+    display: block;
+    padding-top: 20px;
+    padding-bottom: 40%;
+    font-size: 36px;
+    color: white;
+}

@@ -41,11 +41,18 @@ function CompanyList() {
     async function companySearch(searchName) {
         setSearchTerm(searchName);
 
-        const results = await JoblyApi.getCompanies(searchName);
-        setCompanies({
-            companiesData: results,
-            isLoading: false
-        });
+        try {
+            const results = await JoblyApi.getCompanies(searchName);
+            setCompanies({
+                companiesData: results,
+                isLoading: false
+            });
+        } catch (err) {
+            setCompanies({
+                companiesData: [],
+                isLoading: false
+            });
+        }
     }
 
     return (

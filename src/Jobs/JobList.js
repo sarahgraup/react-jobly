@@ -41,26 +41,33 @@ function JobList() {
     async function jobSearch(SearchTitle) {
         setSearchTerm(SearchTitle);
 
-        const results = await JoblyApi.getJobs(SearchTitle);
-        setJobs(curr => {
-            curr.jobsData = results;
-            curr.isLoading = false;
-            return { ...curr };
-        });
+        try {
+            const results = await JoblyApi.getJobs(SearchTitle);
+            setJobs({
+                jobsData: results,
+                isLoading: false
+            });
+        } catch (err) {
+            setJobs({
+                jobsData: [],
+                isLoading: false
+            });
+        }
     }
 
-    return (
-        <div className="JobList">
-            {jobs.isLoading
-                ? <Loading />
-                : <div>
-                    <Search search={jobSearch} />
-                    {searchTerm && <p>Showing results for "{searchTerm}"</p>}
-                    {jobs.jobsData.length ?
-                        <JobCardList jobs={jobs.jobsData} /> :
-                        <p>Sorry no results were found</p>}
-                </div>}
-        </div>
-    );
+
+return (
+    <div className="JobList">
+        {jobs.isLoading
+            ? <Loading />
+            : <div>
+                <Search search={jobSearch} />
+                {searchTerm && <p>Showing results for "{searchTerm}"</p>}
+                {jobs.jobsData.length ?
+                    <JobCardList jobs={jobs.jobsData} /> :
+                    <p>Sorry no results were found</p>}
+            </div>}
+    </div>
+);
 }
 export default JobList;

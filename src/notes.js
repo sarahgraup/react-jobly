@@ -22,7 +22,7 @@ function CompanyDetail() {
 
     const { handle } = useParams();
 
-    //fetches single company data from api after first render
+    //fetches single company data from api after first
     useEffect(function fetchCompanyOnMount() {
         async function fetchCompany(handle) {
             try {
@@ -33,20 +33,15 @@ function CompanyDetail() {
             })
             }
             catch (err) {
-                // console.log("err", err);
-                setCompany({
-                    companyData: null,
-                    isLoading: false
-                });
+                return <NotFound />
             }
             }
         fetchCompany(handle);
-    }, [handle]);
-    // if(company.isLoading===false && !Object.keys(company.companyData).length){
-        if(company.isLoading===false && company.companyData === null){
+    }, []);
 
-    return <NotFound />;
-    }
+    // if(company.isLoading===false && !Object.keys(company.companyData).length){
+    //     return <NotFound />;
+    // }
 
     return (
         <div className="CompanyDetail">
@@ -62,5 +57,4 @@ function CompanyDetail() {
         </div>
     );
 }
-
 export default CompanyDetail;

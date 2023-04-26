@@ -41,32 +41,21 @@ class JoblyApi {
     /** Get details on a company by handle. */
 
     static async getCompany(handle) {
-        try{
             let res = await this.request(`companies/${handle}`);
-            return res.company;
-        }catch(err){
-            return {};
-        }
-        
+            return res.company;        
     }
 
     /** Get list of companies or list based on filter by searchName, or empty array
      * if no companies match search term.  */
     static async getCompanies(searchName) {
-        try {
             let res;
             if (searchName === undefined || searchName === "") {
                 res = await this.request("companies")
             } else {
                 res = await this.request(`companies/?nameLike=${searchName}`);
             }
-            console.log(res.companies);
+            // console.log(res.companies);
             return res.companies;
-
-        } catch (err) {
-            return [];
-
-        }
 
     }
 
@@ -74,7 +63,6 @@ class JoblyApi {
      * if no jobs match search term.
       */
     static async getJobs(searchTitle) {
-       try {
         let res;
         if (searchTitle === undefined || searchTitle === "") {
             res = await this.request("jobs");
@@ -83,11 +71,7 @@ class JoblyApi {
             console.log(res.jobs);
         }
         return res.jobs;
-       } catch (err) {
-        return [];
        }
-
-    }
 
 }
 export default JoblyApi;

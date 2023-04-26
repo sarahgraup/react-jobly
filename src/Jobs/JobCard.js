@@ -1,3 +1,5 @@
+import { convertAndFormat } from "../helperFuncs";
+
 /** Component for JObCard
  *  Renders a card with job details
  * 
@@ -13,6 +15,8 @@
 function JobCard({ job }) {
     console.debug("JobCard");
 
+    const salary = convertAndFormat(job.salary);
+
     return (
         <div className="JobCard">
             <h1>{job.title}</h1>
@@ -21,16 +25,15 @@ function JobCard({ job }) {
             <div>
                 {"salary" in job && (
                     <div>
-                        Salary:
-                        {job.salary}
+                        Salary: 
+                        ${salary}
                     </div>
                 )}
 
                 <div>
                     {"equity" in job && (
                         <div>
-                            Equity:
-                            {job.equity}
+                            Equity: {job.equity}
                         </div>
                     )}
                 </div>
