@@ -1,13 +1,14 @@
 import { useState } from 'react';
-/** Component for summary
+/** Component for Search bar
  * 
  * Props:
- * - 
+ * - parent search function
  * 
  * State:
- * - 
+ * - formData: user input in search bar
  * 
  * call list
+ * { CompanyList, JobList } -> Search
  */
 
 function Search({ search }) {

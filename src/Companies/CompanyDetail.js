@@ -37,7 +37,7 @@ function CompanyDetail() {
                         <h2>{company.companyData.name}</h2>
                         <p>{company.companyData.description}</p>
                     </div>
-                    <JobCardList companies={company.companyData.jobs} />
+                    <JobCardList jobs={company.companyData.jobs} />
                 </div>)}
 
         </div>

@@ -22,7 +22,7 @@ function CompanyCardList({ companies }) {
                 )
             }
         </div>
-    )
+    );
 }
 
 export default CompanyCardList;

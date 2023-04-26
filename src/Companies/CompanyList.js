@@ -36,6 +36,7 @@ function CompanyList() {
             return { ...curr };
         });
     }
+    console.log(companies.companiesData);
 
     return (
         <div className="CompanyList">

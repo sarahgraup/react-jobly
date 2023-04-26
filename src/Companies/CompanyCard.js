@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
  *  
  *  links to: /companies/:handle
  * 
- * CompanyCardList -> Company Card
+ * CompanyCardList -> CompanyCard
  */
 
 function CompanyCard({ company }) {
@@ -18,7 +18,7 @@ function CompanyCard({ company }) {
     return (
         <div className="CompanyCard">
             <Link to={`/companies/${company.handle}`}>
-                {company.logoURL && <img src={company.logoURL} alt={`${company.name} logo`}/>}
+                {company.logoUrl && <img src={company.logoUrl} alt={`${company.name} logo`} />}
                 <h3>{company.name}</h3>
                 <p>{company.description}</p>
             </Link>
