@@ -23,7 +23,7 @@ function JobCard({ job }) {
             <h3>{job.companyName}</h3>
 
             <div>
-                {"salary" in job && (
+                {"salary" in job && job.salary > 0 && (
                     <div>
                         Salary: 
                         ${salary}
@@ -31,7 +31,7 @@ function JobCard({ job }) {
                 )}
 
                 <div>
-                    {"equity" in job && (
+                    {"equity" in job && Number(job.equity) > 0 && (
                         <div>
                             Equity: {job.equity}
                         </div>
