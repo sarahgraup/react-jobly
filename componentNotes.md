@@ -1,4 +1,4 @@
-App (renders routes, shows header)
+{“App (renders routes, shows header)
   - props: none
   - functions:
       - loginUser: API call; re-renders Login on failure or Home on success and updates user context TODO: handle in Login
