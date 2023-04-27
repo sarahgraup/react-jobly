@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 /**Component for Signup
  * 
  * renders signup form and calls signup with inputted info
@@ -17,6 +17,9 @@ function Signup({ signup }) {
         email:"",
         errors: []
     });
+    console.log("Signup state: ", formData);
+
+    const navigate = useNavigate();
 
     //handles input change
     function handleChange(evt) {
@@ -32,7 +35,7 @@ function Signup({ signup }) {
         evt.preventDefault();
         try {
             await signup(formData);
-            <Navigate to="/"></Navigate>
+            navigate ("/");
         } catch (err) {
             setFormData(
                 curr => {
@@ -47,31 +50,32 @@ function Signup({ signup }) {
     return (
         <div className="Signup-form">
             <form onSubmit={handleSubmit}>
-            <label for="username">Username </label>
+            <label htmlFor="username">Username </label>
                 <input className="signup-input"
                     value={formData.username}
                     name="username"
                     onChange={handleChange}>
                 </input>
-                <label for="password">Password </label>
+                <label htmlFor="password">Password </label>
                 <input className="signup-input"
                     value={formData.password}
                     name="password"
+                    type="password"
                     onChange={handleChange}>
                 </input>
-                <label for="firstName">First Name </label>
+                <label htmlFor="firstName">First Name </label>
                 <input className="signup-input"
                     value={formData.firstName}
                     name="firstName"
                     onChange={handleChange}>
                 </input>
-                <label for="lastName">Last Name </label>
+                <label htmlFor="lastName">Last Name </label>
                 <input className="login-input"
                     value={formData.lastName}
                     name="lastName"
                     onChange={handleChange}>
                 </input>
-                <label for="email">Email</label>
+                <label htmlFor="email">Email</label>
                 <input className="signup-input"
                     value={formData.email}
                     name="email"

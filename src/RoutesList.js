@@ -24,14 +24,15 @@ import Profile from './Users/Profile';
  * App -> RoutesList -> 
  * { Home, CompanyList, JobList, CompanyDetail } (when path is accessed)
  * */
-function RoutesList({ loginUser, signupUser, updateUser }) {
-    const { currentUser } = useContext(userContext);
+function RoutesList({ login, signup, update }) {
+    console.log("RoutesList");
+    const currentUser = useContext(userContext);
 
-    if (!Object.keys(currentUser).length) {
+    if (currentUser === null) {
         return (
             <Routes>
-                <Route path="/login" element={<Login login={loginUser} />}></Route>
-                <Route path="/signup" element={<Signup signup={signupUser} />}></Route>
+                <Route path="/login" element={<Login login={login} />}></Route>
+                <Route path="/signup" element={<Signup signup={signup} />}></Route>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/companies" element={<Navigate to="/" />}></Route>
                 <Route path="/profile" element={<Navigate to="/" />}></Route>
@@ -43,13 +44,13 @@ function RoutesList({ loginUser, signupUser, updateUser }) {
 
     }
 
-    if (Object.keys(currentUser).length) {
+    if (currentUser !== null) {
         return (
             <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/companies" element={<CompanyList />}></Route>
                 <Route path="/companies/:handle" element={<CompanyDetail />}></Route>
-                <Route path="/profile" element={<Profile update={updateUser} />}></Route>
+                <Route path="/profile" element={<Profile update={update} />}></Route>
                 <Route path="/jobs" element={<JobList />}></Route>
                 <Route path="/login" element={<Navigate to="/" />}></Route>
                 <Route path="/signup" element={<Navigate to="/" />}></Route>

@@ -23,7 +23,7 @@ import userContext from "./userContext";
 */
 function Nav({ logout }) {
 
-    const { currentUser } = useContext(userContext);
+    const currentUser = useContext(userContext);
     console.log(currentUser);
 
     //nav bar if there is not a current user 
@@ -96,7 +96,7 @@ function Nav({ logout }) {
                     }
                 }}>
                 Jobly</NavLink>
-            {Object.keys(currentUser).length ? loggedIn() : notLoggedIn()}
+            {currentUser !== null ? loggedIn() : notLoggedIn()}
         </nav>
     );
 

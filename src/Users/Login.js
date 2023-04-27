@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 /**Component for Login
  * 
  * renders login form and calls login with inputted info
@@ -15,6 +15,10 @@ function Login({ login }) {
         errors: []
     });
 
+    console.log("Login formData: ", formData);
+
+    const navigate = useNavigate();
+
     //handles change of input
     function handleChange(evt) {
         const { name, value } = evt.target;
@@ -29,7 +33,7 @@ function Login({ login }) {
         evt.preventDefault();
         try {
             await login(formData);
-            <Navigate to="/"></Navigate>
+            navigate("/");
         } catch (err) {
             setFormData(
                 curr => {
@@ -44,16 +48,17 @@ function Login({ login }) {
     return (
         <div className="Login-form">
             <form onSubmit={handleSubmit}>
-                <label for="username">Username </label>
+                <label htmlFor="username">Username </label>
                     <input className="login-input"
                         value={formData.username}
                         name="username"
                         onChange={handleChange}>
                     </input>
-                <label for="password">Password </label>
+                <label htmlFor="password">Password </label>
                     <input className="login-input"
                         value={formData.password}
                         name="password"
+                        type="password"
                         onChange={handleChange}>
                     </input>
                 <button type="submit">Submit</button>

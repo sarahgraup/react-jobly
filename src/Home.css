@@ -12,10 +12,30 @@
     color: white;
 }
 
+.Home h2 {
+    color: white;
+    padding-bottom: 22%;
+}
+
 .Home-subheading {
     display: block;
     padding-top: 20px;
-    padding-bottom: 40%;
+    padding-bottom: 1%;
     font-size: 36px;
     color: white;
+}
+
+.Home-buttons {
+    margin-top: 2%;
+    padding-bottom: 22%;
+}
+.Home-buttons button {
+    width: 200px;
+    font-size: 24px;
+    border-radius: 10px;
+}
+
+.Home-buttons a {
+    color: white;
+    text-decoration: none;
 }

@@ -17,9 +17,11 @@ class JoblyApi {
     static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
         "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
         "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
-
-    static async request(endpoint, data = {}, method = "get") {
-        console.debug("API Call:", endpoint, data, method);
+    
+        
+        static async request(endpoint, data = {}, method = "get") {
+            console.debug("API Call:", endpoint, data, method);
+            console.log("API token: ", this.token);
 
         const url = `${BASE_URL}/${endpoint}`;
         const headers = { Authorization: `Bearer ${JoblyApi.token}` };
@@ -45,8 +47,7 @@ class JoblyApi {
             return res.company;        
     }
 
-    /** Get list of companies or list based on filter by searchName, or empty array
-     * if no companies match search term.  */
+    /** Get list of companies or list based on filter by searchName. */
     static async getCompanies(searchName) {
             let res;
             if (searchName === undefined || searchName === "") {
@@ -59,8 +60,7 @@ class JoblyApi {
 
     }
 
-    /** Get list of jobs or list based on filter by searchTitle, or empty array
-     * if no jobs match search term.
+    /** Get list of jobs or list based on filter by searchTitle.
       */
     static async getJobs(searchTitle) {
         let res;
@@ -72,6 +72,34 @@ class JoblyApi {
         }
         return res.jobs;
        }
+
+    /** Authenticate a user with {username, password} and return a token from
+     * the API. 
+     */
+    static async authenticateUser(userData) {
+        const res = await this.request("auth/token", userData, "post");
+        this.token = res.token;
+        return this.token;
+    }
+
+    /** Sign up a new user with { username, password, firstName, lastName, email }
+     * and return a token from the API.
+     */
+    static async signupUser(userData) {
+        const res = await this.request("auth/register", userData, "post");
+        this.token = res.token;
+        return this.token;
+    }
+
+    /** Get user data with username from API and return 
+     *  { username, firstName, lastName, isAdmin, jobs }
+     *   where jobs is { id, title, companyHandle, companyName, state }
+     */
+    static async getUser(username) {
+        const res = await this.request(`users/${username}`);
+        return res;
+    }
+
 
 }
 export default JoblyApi;
