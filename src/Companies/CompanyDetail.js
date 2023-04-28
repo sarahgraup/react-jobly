@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import JoblyApi from '../JoblyApi';
+import JoblyApi from '../Api/JoblyApi';
 import Loading from '../Loading';
 import JobCardList from '../Jobs/JobCardList';
 import NotFound from '../NotFound';

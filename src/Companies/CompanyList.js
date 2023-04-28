@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CompanyCardList from "./CompanyCardList";
 import Loading from "../Loading";
-import JoblyApi from "../JoblyApi";
+import JoblyApi from "../Api/JoblyApi";
 import Search from "../Search";
 
 /**
@@ -37,7 +37,7 @@ function CompanyList() {
         fetchCompanies();
     }, []);
 
-    //fetches companies from api after search submit filters; update searchTerm state
+    //fetches companies from api after search submit filters; updateUser searchTerm state
     async function companySearch(searchName) {
         setSearchTerm(searchName);
 

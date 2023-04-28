@@ -1,4 +1,5 @@
 import axios from "axios";
+import LocalStorage from "../LocalStorage";
 
 // TODO: make it clearer that this is not a component. Different folder? Different name?
 
@@ -16,14 +17,15 @@ class JoblyApi {
     // Remember, the backend needs to be authorized with a token
     // We're providing a token you can use to interact with the backend API
     // DON'T MODIFY THIS TOKEN
-    static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-        "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-        "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+    // static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+    //     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+    //     "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+    static token = localStorage.getItem("token");
     
         
         static async request(endpoint, data = {}, method = "get") {
-            console.debug("API Call:", endpoint, data, method);
-            console.log("API token: ", this.token);
+            // console.debug("API Call:", endpoint, data, method);
+            // console.log("API token: ", this.token);
 
         const url = `${BASE_URL}/${endpoint}`;
         const headers = { Authorization: `Bearer ${JoblyApi.token}` };
@@ -34,7 +36,7 @@ class JoblyApi {
         try {
             return (await axios({ url, method, data, params, headers })).data;
         } catch (err) {
-            console.error("API Error:", err.response);
+            // console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
@@ -70,7 +72,6 @@ class JoblyApi {
             res = await this.request("jobs");
         } else {
             res = await this.request(`jobs/?title=${searchTitle}`);
-            console.log(res.jobs);
         }
         return res.jobs;
        }
@@ -80,6 +81,8 @@ class JoblyApi {
      */
     static async authenticateUser(userData) {
         const res = await this.request("auth/token", userData, "post");
+        //move localstorage to app
+        LocalStorage(res.token, userData.username); //lowercase - save to local storage
         this.token = res.token;
         return this.token;
     }
@@ -89,6 +92,7 @@ class JoblyApi {
      */
     static async signupUser(userData) {
         const res = await this.request("auth/register", userData, "post");
+        LocalStorage(res.token, userData.username);
         this.token = res.token;
         return this.token;
     }
@@ -100,6 +104,15 @@ class JoblyApi {
     static async getUser(username) {
         const res = await this.request(`users/${username}`);
         return res;
+    }
+
+    /**sets token to null after user logs out
+     * returns null token
+     */
+    static logoutUser(){
+        LocalStorage(null, null);
+        this.token = null;
+        return this.token;
     }
 
 

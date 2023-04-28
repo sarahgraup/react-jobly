@@ -1,4 +1,4 @@
-import { convertAndFormat } from "../helperFuncs";
+import { convertAndFormat } from "../Helpers/helperFuncs";
 import "./JobCard.css";
 /** Component for JObCard
  *  Renders a card with job details

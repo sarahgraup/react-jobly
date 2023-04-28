@@ -15,7 +15,6 @@ function Login({ login }) {
         errors: []
     });
 
-    console.log("Login formData: ", formData);
 
     const navigate = useNavigate();
 
@@ -32,7 +31,7 @@ function Login({ login }) {
     async function handleSubmit(evt) {
         evt.preventDefault();
         try {
-            await login(formData);
+            await login(formData.username, formData.password);
             navigate("/");
         } catch (err) {
             setFormData(
@@ -48,19 +47,24 @@ function Login({ login }) {
     return (
         <div className="Login-form">
             <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username </label>
+
+                <label>Username
                     <input className="login-input"
                         value={formData.username}
                         name="username"
                         onChange={handleChange}>
                     </input>
-                <label htmlFor="password">Password </label>
+                </label>
+
+                <label>Password
                     <input className="login-input"
                         value={formData.password}
                         name="password"
                         type="password"
                         onChange={handleChange}>
                     </input>
+                </label>
+
                 <button type="submit">Submit</button>
             </form>
             {formData.errors.length ?
@@ -70,7 +74,7 @@ function Login({ login }) {
                             {error}
                         </li>
                     ))}
-                </ul>:""
+                </ul> : ""
             }
         </div>
     );

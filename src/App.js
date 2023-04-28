@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter } from 'react-router-dom';
-import RoutesList from './RoutesList';
-import Nav from './Nav';
+import RoutesList from './Routes/RoutesList';
+import Nav from './Routes/Nav';
 import './App.css';
 import userContext from './userContext';
-import JoblyApi from './JoblyApi';
+import JoblyApi from "./Api/JoblyApi";
+import jwt_decode from "jwt-decode";
+
 
 
 /**renders entire application
@@ -20,51 +22,44 @@ import JoblyApi from './JoblyApi';
  * */
 function App() {
 
-  const [token, setToken] = useState({ token: null, username: null, isLoading: true }); //TODO: choose a state name that won't yield token.token
-  const [currentUser, setCurrentUser] = useState({ user: null, isLoading: true })
+  //can decode to get username from token
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  // console.log("right after usestate", userAuth.token);
+  const [currentUser, setCurrentUser] = useState({ user: {token:token}, isLoading: true });
 
-  console.log("App currentUser: ", currentUser, "token: ", token)
+  console.log("App currentUser: ", currentUser, "token: ", token);
 
   /** Send login data from form to API and set state with returned token */
-  // TODO: either change login to take user, password or { username, password }; match for signup
-  async function login(formData) {
+  async function login(username, password) {
+    // console.log("login:", username);
     const userData = {
-      username: formData.username,
-      password: formData.password
+      username: username,
+      password: password
     };
     const token = await JoblyApi.authenticateUser(userData);
-    setToken({
-      token: token,
-      username: formData.username,
-      isLoading: false
-    });
+    setToken(token);
   }
 
   /** Send new user data from form to API and set state with returned token */
-  async function signup(formData) {
+  async function signup(username, password, firstName, lastName, email) {
     const userData = {
-      username: formData.username,
-      password: formData.password,
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email
+      username: username,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+      email: email
     };
     const token = await JoblyApi.signupUser(userData);
-    setToken({
-      token: token,
-      username: formData.username,
-      isLoading: false
-    });
+    setToken(token);
   }
 
   /** Logout user by removing token and current user data  */
-  async function logout() { // TODO: doesn't need to be async;
-    // a better way is to make a method in API to clear the token; then call that here
-    setToken({
-      token: null,
-      username: null,
-      isLoading: false
-    });
+  function logout() { 
+    const token = JoblyApi.logoutUser();
+    // console.log(localStorage.getItem("token"));
+    // console.log("token in logout", token);
+
+    setToken(token);
     setCurrentUser({
       user: null,
       isLoading: false
@@ -73,20 +68,21 @@ function App() {
 
   /** fetchest user details from API after every token change when token exists */
   useEffect(function fetchCurrentUserOnTokenChange() {
-    if (token.token !== null) {
+    // console.log(localStorage.getItem("token"));
+    // console.log("token in token change", userAuth.token);
+    if (token !== null) {
       async function fetchUser() {
         try {
-          const user = await JoblyApi.getUser(token.username);
+          console.log("decode", jwt_decode(token));
+          const {username} = jwt_decode(token);
+
+          const user = await JoblyApi.getUser(username);
           setCurrentUser({
             user: user,
             isLoading: false
           });
         } catch (err) {
-          setToken({
-            token: null,
-            username: null,
-            isLoading: false
-          });
+          setToken(localStorage.getItem("token"));
           setCurrentUser({
             user: null,
             isLoading: false

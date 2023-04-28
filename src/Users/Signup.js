@@ -12,9 +12,9 @@ function Signup({ signup }) {
     const [formData, setFormData] = useState({
         username: "",
         password: "",
-        firstName:"",
-        lastName:"",
-        email:"",
+        firstName: "",
+        lastName: "",
+        email: "",
         errors: []
     });
     console.log("Signup state: ", formData);
@@ -24,9 +24,9 @@ function Signup({ signup }) {
     //handles input change
     function handleChange(evt) {
         const { name, value } = evt.target;
-        setFormData(input=>({
+        setFormData(input => ({
             ...input,
-            [name]:value
+            [name]: value
         }));
     }
 
@@ -34,8 +34,13 @@ function Signup({ signup }) {
     async function handleSubmit(evt) {
         evt.preventDefault();
         try {
-            await signup(formData);
-            navigate ("/");
+            await signup(
+                formData.username,
+                formData.password,
+                formData.firstName,
+                formData.lastName,
+                formData.email);
+            navigate("/");
         } catch (err) {
             setFormData(
                 curr => {
@@ -50,48 +55,56 @@ function Signup({ signup }) {
     return (
         <div className="Signup-form">
             <form onSubmit={handleSubmit}>
-            <label>Username 
-                <input className="signup-input"
-                    value={formData.username}
-                    name="username"
-                    onChange={handleChange}>
-                </input></label>
-                {/* TODO: can put input inside label */}
-                <label htmlFor="password">Password </label>
-                <input className="signup-input"
-                    value={formData.password}
-                    name="password"
-                    type="password"
-                    onChange={handleChange}>
-                </input>
-                <label htmlFor="firstName">First Name </label>
-                <input className="signup-input"
-                    value={formData.firstName}
-                    name="firstName"
-                    onChange={handleChange}>
-                </input>
-                <label htmlFor="lastName">Last Name </label>
-                <input className="login-input"
-                    value={formData.lastName}
-                    name="lastName"
-                    onChange={handleChange}>
-                </input>
-                <label htmlFor="email">Email</label>
-                <input className="signup-input"
-                    value={formData.email}
-                    name="email"
-                    onChange={handleChange}>
-                </input>
+                <label>Username
+                    <input className="signup-input"
+                        value={formData.username}
+                        name="username"
+                        onChange={handleChange}>
+                    </input></label>
+
+                <label>Password
+                    <input className="signup-input"
+                        value={formData.password}
+                        name="password"
+                        type="password"
+                        onChange={handleChange}>
+                    </input>
+                </label>
+
+                <label>First Name
+                    <input className="signup-input"
+                        value={formData.firstName}
+                        name="firstName"
+                        onChange={handleChange}>
+                    </input>
+                </label>
+
+                <label>Last Name
+                    <input className="login-input"
+                        value={formData.lastName}
+                        name="lastName"
+                        onChange={handleChange}>
+                    </input>
+                </label>
+
+                <label>Email
+                    <input className="signup-input"
+                        value={formData.email}
+                        name="email"
+                        onChange={handleChange}>
+                    </input>
+
+                </label>
                 <button type="submit">Submit</button>
             </form>
             {formData.errors.length ?
                 <ul className="Errors">
                     {formData.errors.map(error => (
-                        <li key = {error}>
+                        <li key={error}>
                             {error}
                         </li>
                     ))}
-                </ul>:""
+                </ul> : ""
             }
         </div>
     );
