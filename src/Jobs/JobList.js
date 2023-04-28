@@ -21,8 +21,8 @@ function JobList() {
     const [jobs, setJobs] = useState({ jobsData: [], isLoading: true });
     const [searchTerm, setSearchTerm] = useState('');
 
-    console.debug("JobList jobs state: ", jobs,
-        "searchTerm state: ", searchTerm);
+    // console.debug("JobList jobs state: ", jobs,
+    //     "searchTerm state: ", searchTerm);
 
     //fetches jobs api after first render
     useEffect(function fetchJobsOnMount() {

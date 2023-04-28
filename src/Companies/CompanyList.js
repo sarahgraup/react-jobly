@@ -21,8 +21,8 @@ import Search from "../Search";
 function CompanyList() {
     const [companies, setCompanies] = useState({ companiesData: [], isLoading: true })
     const [searchTerm, setSearchTerm] = useState('');
-    console.debug("CompanyList companies state: ", companies,
-        "searchTerm state: ", searchTerm);
+    // console.debug("CompanyList companies state: ", companies,
+    //     "searchTerm state: ", searchTerm);
 
 
     //fetches list of companies from api after first render

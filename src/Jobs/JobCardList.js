@@ -14,7 +14,7 @@ import JobCard from "./JobCard";
  */
 
 function JobCardList({ jobs }) {
-    console.debug("JobCardList");
+    // console.debug("JobCardList");
 
     return (
         <div className="JobCardList">

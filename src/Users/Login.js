@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import "./Login.css";
 /**Component for Login
  * 
  * renders login form and calls login with inputted info
@@ -48,22 +49,28 @@ function Login({ login }) {
         <div className="Login-form">
             <form onSubmit={handleSubmit}>
 
-                <label>Username
-                    <input className="login-input"
-                        value={formData.username}
-                        name="username"
-                        onChange={handleChange}>
-                    </input>
-                </label>
+                <div>
 
-                <label>Password
-                    <input className="login-input"
-                        value={formData.password}
-                        name="password"
-                        type="password"
-                        onChange={handleChange}>
-                    </input>
-                </label>
+                    <label>Username
+                        <input className="login-input"
+                            value={formData.username}
+                            name="username"
+                            onChange={handleChange}>
+                        </input>
+                    </label>
+                </div>
+
+                <div>
+
+                    <label>Password
+                        <input className="login-input"
+                            value={formData.password}
+                            name="password"
+                            type="password"
+                            onChange={handleChange}>
+                        </input>
+                    </label>
+                </div>
 
                 <button type="submit">Submit</button>
             </form>

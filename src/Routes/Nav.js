@@ -24,7 +24,7 @@ import userContext from "../userContext";
 function Nav({ logout }) {
 
     const currentUser = useContext(userContext);
-    console.log(currentUser);
+    console.log("currentUser in nav", currentUser);
 
     //nav bar if there is not a current user 
     function notLoggedIn() {
@@ -60,7 +60,7 @@ function Nav({ logout }) {
         <nav className="Nav">
             <NavLink className="Nav-Home" to="/">
                 Jobly</NavLink>
-            {currentUser !== null ? loggedIn() : notLoggedIn()}
+            {(currentUser !== null) ? loggedIn() : notLoggedIn()}
         </nav>
     );
 

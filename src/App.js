@@ -6,14 +6,15 @@ import './App.css';
 import userContext from './userContext';
 import JoblyApi from "./Api/JoblyApi";
 import jwt_decode from "jwt-decode";
-
-
+import Loading from "./Loading";
+import setLocalStorage from "./setLocalStorage";
 
 /**renders entire application
  * 
  * State: 
- *  - currentUser: the user object from API that is passed via context throughout app
- *  - token: { token, username, isLoading}
+ *  - currentUser: either undefined if token, null if no token, or object of user
+ *    data if logged in user exists
+ *  - token: { token}
  * 
  * Props:none
  * 
@@ -21,22 +22,19 @@ import jwt_decode from "jwt-decode";
  * 
  * */
 function App() {
-
-  //can decode to get username from token
   const [token, setToken] = useState(localStorage.getItem("token"));
-  // console.log("right after usestate", userAuth.token);
-  const [currentUser, setCurrentUser] = useState({ user: {token:token}, isLoading: true });
+  const [currentUser, setCurrentUser] = useState(token ? undefined : null);
 
   console.log("App currentUser: ", currentUser, "token: ", token);
 
   /** Send login data from form to API and set state with returned token */
   async function login(username, password) {
-    // console.log("login:", username);
     const userData = {
       username: username,
       password: password
     };
     const token = await JoblyApi.authenticateUser(userData);
+    setLocalStorage(token);
     setToken(token);
   }
 
@@ -50,59 +48,51 @@ function App() {
       email: email
     };
     const token = await JoblyApi.signupUser(userData);
+    setLocalStorage(token);
     setToken(token);
   }
 
   /** Logout user by removing token and current user data  */
-  function logout() { 
+  function logout() {
     const token = JoblyApi.logoutUser();
-    // console.log(localStorage.getItem("token"));
-    // console.log("token in logout", token);
-
+    setLocalStorage(token);
     setToken(token);
-    setCurrentUser({
-      user: null,
-      isLoading: false
-    });
+    setCurrentUser(null);
   }
 
   /** fetchest user details from API after every token change when token exists */
   useEffect(function fetchCurrentUserOnTokenChange() {
-    // console.log(localStorage.getItem("token"));
-    // console.log("token in token change", userAuth.token);
     if (token !== null) {
       async function fetchUser() {
         try {
-          console.log("decode", jwt_decode(token));
-          const {username} = jwt_decode(token);
+          const { username } = jwt_decode(token);
 
           const user = await JoblyApi.getUser(username);
-          setCurrentUser({
-            user: user,
-            isLoading: false
-          });
+          setCurrentUser(user);
         } catch (err) {
           setToken(localStorage.getItem("token"));
-          setCurrentUser({
-            user: null,
-            isLoading: false
-          })
+          setCurrentUser(null)
         }
 
       } fetchUser();
+    } else {
+      setCurrentUser(null)
     }
   }, [token])
 
 
   return (
     <div className="App">
-      <userContext.Provider
-        value={currentUser.user}>
-        <BrowserRouter>
-          <Nav logout={logout} />
-          <RoutesList login={login} signup={signup} />
-        </BrowserRouter>
-      </userContext.Provider>
+      {currentUser !== undefined
+        ? <userContext.Provider
+          value={currentUser}>
+          <BrowserRouter>
+            <Nav logout={logout} />
+            <RoutesList login={login} signup={signup} />
+          </BrowserRouter>
+        </userContext.Provider>
+        : <Loading />
+      }
     </div>
 
   );

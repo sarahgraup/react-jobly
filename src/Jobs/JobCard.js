@@ -13,7 +13,7 @@ import "./JobCard.css";
  */
 
 function JobCard({ job }) {
-    console.debug("JobCard");
+    // console.debug("JobCard");
 
     const salary = convertAndFormat(job.salary);
 

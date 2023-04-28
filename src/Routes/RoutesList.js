@@ -24,7 +24,7 @@ import Profile from '../Users/Profile';
  * App -> RoutesList -> 
  * { Home, CompanyList, JobList, CompanyDetail } (when path is accessed)
  * */
-function RoutesList({ login, signup, updateUser }) { //TODO: make updateUser more exact, ie updateUser
+function RoutesList({ login, signup, updateUser }) {
     console.log("RoutesList");
     const currentUser = useContext(userContext);
     console.log("current user in routes:", currentUser);
@@ -41,7 +41,7 @@ function RoutesList({ login, signup, updateUser }) { //TODO: make updateUser mor
 
     }
 
-    
+
     if (currentUser !== null) {
         return (
             <Routes>

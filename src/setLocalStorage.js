@@ -2,7 +2,7 @@
  * dataItem:
  * - when token is changed, updates token and username in localStorage
  */
-function LocalStorage(token){
+function setLocalStorage(token){
     if(token!==null){
         localStorage.setItem("token", token);
     }
@@ -12,4 +12,4 @@ function LocalStorage(token){
     return token;
 
 }
-export default LocalStorage;
+export default setLocalStorage;

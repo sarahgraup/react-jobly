@@ -18,7 +18,7 @@ import NotFound from '../NotFound';
  */
 function CompanyDetail() {
     const [company, setCompany] = useState({ companyData: null, isLoading: true });
-    console.debug("CompanyDetail state: ", company);
+    // console.debug("CompanyDetail state: ", company);
 
     const { handle } = useParams();
 

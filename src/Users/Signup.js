@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import "./Signup.css";
 /**Component for Signup
  * 
  * renders signup form and calls signup with inputted info
@@ -80,7 +81,7 @@ function Signup({ signup }) {
                 </label>
 
                 <label>Last Name
-                    <input className="login-input"
+                    <input className="signup-input"
                         value={formData.lastName}
                         name="lastName"
                         onChange={handleChange}>

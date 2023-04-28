@@ -14,7 +14,7 @@ import './CompanyCard.css';
  */
 
 function CompanyCard({ company }) {
-    console.debug("CompanyCard");
+    // console.debug("CompanyCard");
 
     return (
         <div className="CompanyCard">

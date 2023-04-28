@@ -1,7 +1,4 @@
 import axios from "axios";
-import LocalStorage from "../LocalStorage";
-
-// TODO: make it clearer that this is not a component. Different folder? Different name?
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
@@ -81,8 +78,6 @@ class JoblyApi {
      */
     static async authenticateUser(userData) {
         const res = await this.request("auth/token", userData, "post");
-        //move localstorage to app
-        LocalStorage(res.token, userData.username); //lowercase - save to local storage
         this.token = res.token;
         return this.token;
     }
@@ -92,7 +87,6 @@ class JoblyApi {
      */
     static async signupUser(userData) {
         const res = await this.request("auth/register", userData, "post");
-        LocalStorage(res.token, userData.username);
         this.token = res.token;
         return this.token;
     }
@@ -110,7 +104,6 @@ class JoblyApi {
      * returns null token
      */
     static logoutUser(){
-        LocalStorage(null, null);
         this.token = null;
         return this.token;
     }

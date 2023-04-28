@@ -5,7 +5,7 @@
  *  -3141592.65 --> “-3,141,592.65”
  */
 function convertAndFormat(num) {
-    console.debug("convertAndFormat");
+    // console.debug("convertAndFormat");
 
     if (isNaN(num)) return "Requires number input";
 
@@ -29,7 +29,7 @@ function convertAndFormat(num) {
  *  ["1", "2", "3"] --> 2 
  */
 function findOnesIndex(numArr) {
-    console.debug("findOnesIndex");
+    // console.debug("findOnesIndex");
 
     const decimalIdx = numArr.indexOf('.');
 
