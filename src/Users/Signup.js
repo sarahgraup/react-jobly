@@ -50,12 +50,13 @@ function Signup({ signup }) {
     return (
         <div className="Signup-form">
             <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username </label>
+            <label>Username 
                 <input className="signup-input"
                     value={formData.username}
                     name="username"
                     onChange={handleChange}>
-                </input>
+                </input></label>
+                {/* TODO: can put input inside label */}
                 <label htmlFor="password">Password </label>
                 <input className="signup-input"
                     value={formData.password}

@@ -24,7 +24,7 @@ import Profile from './Users/Profile';
  * App -> RoutesList -> 
  * { Home, CompanyList, JobList, CompanyDetail } (when path is accessed)
  * */
-function RoutesList({ login, signup, update }) {
+function RoutesList({ login, signup, update }) { //TODO: make update more exact, ie updateUser
     console.log("RoutesList");
     const currentUser = useContext(userContext);
 
@@ -34,7 +34,8 @@ function RoutesList({ login, signup, update }) {
                 <Route path="/login" element={<Login login={login} />}></Route>
                 <Route path="/signup" element={<Signup signup={signup} />}></Route>
                 <Route path="/" element={<Home />}></Route>
-                <Route path="/companies" element={<Navigate to="/" />}></Route>
+                <Route path="/companies" element={<Navigate to="/" />}></Route> 
+                {/* TODO: do not need 37 through 41, nor login and singup below */}
                 <Route path="/profile" element={<Navigate to="/" />}></Route>
                 <Route path="/companies/:handle" element={<Navigate to="/" />}></Route>
                 <Route path="/jobs" element={<Navigate to="/" />}></Route>

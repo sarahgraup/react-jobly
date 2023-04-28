@@ -52,6 +52,7 @@ function Nav({ logout }) {
     }
 
     //nav bar if there is a current user
+    // TODO: with the Nav a.active, we can use the class rather than the inline style
     function loggedIn() {
         return (
             <div className="Nav-right">

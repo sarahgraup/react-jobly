@@ -7,23 +7,26 @@ import userContext from './userContext';
 import JoblyApi from './JoblyApi';
 
 
-/**renders entire application- Nav and RoutesList
+/**renders entire application
  * 
- * State: currentUser
- *  - the user object from API that is passed via context throughout app
+ * State: 
+ *  - currentUser: the user object from API that is passed via context throughout app
+ *  - token: { token, username, isLoading}
  * 
  * Props:none
  * 
+ * App -> { Nav, RoutesList }
  * 
  * */
 function App() {
 
-  const [token, setToken] = useState({ token: null, username: null, isLoading: true });
+  const [token, setToken] = useState({ token: null, username: null, isLoading: true }); //TODO: choose a state name that won't yield token.token
   const [currentUser, setCurrentUser] = useState({ user: null, isLoading: true })
 
   console.log("App currentUser: ", currentUser, "token: ", token)
 
   /** Send login data from form to API and set state with returned token */
+  // TODO: either change login to take user, password or { username, password }; match for signup
   async function login(formData) {
     const userData = {
       username: formData.username,
@@ -55,7 +58,8 @@ function App() {
   }
 
   /** Logout user by removing token and current user data  */
-  async function logout() {
+  async function logout() { // TODO: doesn't need to be async;
+    // a better way is to make a method in API to clear the token; then call that here
     setToken({
       token: null,
       username: null,
@@ -99,7 +103,7 @@ function App() {
       <userContext.Provider
         value={currentUser.user}>
         <BrowserRouter>
-          <Nav  logout={logout} />
+          <Nav logout={logout} />
           <RoutesList login={login} signup={signup} />
         </BrowserRouter>
       </userContext.Provider>

@@ -1,5 +1,7 @@
 import axios from "axios";
 
+// TODO: make it clearer that this is not a component. Different folder? Different name?
+
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
 /** API Class.
